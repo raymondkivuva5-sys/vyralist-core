@@ -1,0 +1,227 @@
+/* ============================================================
+   UPGRADE.CSS — v1.0  Layer on top of global.css
+
+   Adds:
+   1. Upload progress bar styles
+   2. Improved empty states with SVG illustrations
+   3. Smooth notification badge animations
+   4. Better skeleton pulse keyframe
+   5. Offers search overlay styles
+   6. Dark mode CSS variable overrides
+   7. Pull-to-refresh spin keyframe (shared)
+   8. Smooth screen transitions
+   9. Better message item hover states
+   10. Micro-interaction: task card press state
+   11. Improved tier badge colors
+   12. Error boundary card styles
+   ============================================================ */
+
+/* ── 1. Upload progress ── */
+#upload-progress-wrap {
+  transition: opacity .3s;
+}
+#upload-prog-bar {
+  will-change: width;
+}
+
+/* ── 2. Skeleton pulse ── */
+@keyframes skeletonPulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+/* ── 3. Spin keyframe (shared by PTR spinners) ── */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── 4. Nav badge animation (new notifs) ── */
+.nav-badge {
+  transition: transform .2s cubic-bezier(.34,1.56,.64,1), opacity .15s;
+}
+.nav-badge:empty { opacity: 0; transform: scale(0.5); }
+
+/* ── 5. Notification item — tap highlight ── */
+.notif-item {
+  transition: background .15s;
+  cursor: pointer;
+}
+.notif-item:active {
+  background: var(--bg) !important;
+}
+
+/* ── 6. Unread dot pulse ── */
+.unread-dot {
+  animation: _unreadPulse 2.4s ease-in-out infinite;
+}
+@keyframes _unreadPulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+/* ── 7. Task card press ── */
+.task-card {
+  transition: transform .15s, box-shadow .15s;
+}
+.task-card:active {
+  transform: scale(0.985);
+}
+
+/* ── 8. Offer card press ── */
+.offer-card-h,
+.campaign-card,
+.by-cat-card {
+  transition: transform .15s;
+}
+.offer-card-h:active,
+.campaign-card:active,
+.by-cat-card:active {
+  transform: scale(0.97);
+}
+
+/* ── 9. Message item press ── */
+.msg-item {
+  transition: background .12s;
+}
+.msg-item:active {
+  background: var(--bg);
+}
+
+/* ── 10. Screen transitions ── */
+.screen {
+  animation: _screenIn .2s ease both;
+}
+@keyframes _screenIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ── 11. Offers search overlay ── */
+#offers-search-overlay input::placeholder {
+  color: var(--text-3);
+}
+#offers-search-overlay {
+  animation: _screenIn .15s ease both;
+}
+
+/* ── 12. Empty state icon container ── */
+.empty-icon-wrap {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--brand-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  margin: 0 auto 16px;
+}
+
+/* ── 13. Earnings detail smooth transition ── */
+.earning-detail {
+  overflow: hidden;
+  transition: max-height .28s ease;
+}
+.earning-detail.hidden {
+  display: block !important; /* override any display:none so animation works */
+  max-height: 0 !important;
+  overflow: hidden;
+}
+
+/* ── 14. Tier badge improvements ── */
+[id="tier-badge"][class*="premium"],
+[id="tier-header-badge"][class*="premium"] {
+  background: linear-gradient(135deg, #FEF3C7, #FDE68A);
+  color: #92400E;
+}
+
+/* ── 15. Dark mode support ── */
+[data-theme="dark"] {
+  color-scheme: dark;
+}
+[data-theme="dark"] .onboard-promo-card,
+[data-theme="dark"] .promo-card,
+[data-theme="dark"] .pitch-card {
+  background: var(--surface) !important;
+  border-color: var(--border) !important;
+}
+[data-theme="dark"] input,
+[data-theme="dark"] textarea,
+[data-theme="dark"] select {
+  background: var(--surface) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+[data-theme="dark"] .bottom-nav {
+  box-shadow: 0 -1px 0 var(--border);
+}
+
+/* ── 16. Referral screen improvements ── */
+#referral-code-text {
+  font-family: 'Clash Display', monospace;
+  letter-spacing: 2px;
+  font-size: 24px;
+}
+
+/* ── 17. Upload zone improvement ── */
+.upload-zone {
+  transition: border-color .2s, background .2s;
+}
+.upload-zone:hover {
+  border-color: var(--brand);
+  background: var(--brand-soft);
+}
+
+/* ── 18. Better form focus ── */
+.form-input:focus {
+  outline: none;
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px rgba(91, 46, 232, 0.1);
+}
+
+/* ── 19. Search input clear button ── */
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  background: var(--text-3);
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M18 6L6 18M6 6l12 12'/%3E%3C/svg%3E") no-repeat center;
+  cursor: pointer;
+}
+
+/* ── 20. Button loading state ── */
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ── 21. Profile stat rows — better spacing on small screens ── */
+@media (max-width: 360px) {
+  .profile-stats { gap: 6px; }
+  .stat-row { font-size: 12px; }
+}
+
+/* ── 22. Improved onboarding dots ── */
+.onboard-dot {
+  transition: width .25s cubic-bezier(.4,0,.2,1), background .25s;
+}
+.onboard-dot.active {
+  width: 24px;
+  border-radius: 4px;
+}
+
+/* ── 23. Toast improvements ── */
+#toast-container {
+  pointer-events: none;
+}
+
+/* ── 24. Chat input — auto grow ── */
+.chat-input-field {
+  max-height: 120px;
+  overflow-y: auto;
+}
+
+/* ── 25. Safe area awareness on all screens ── */
+.screen {
+  padding-top: env(safe-area-inset-top, 0px);
+}
